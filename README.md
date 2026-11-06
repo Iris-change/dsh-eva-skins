@@ -6,6 +6,22 @@ DeepSeek Harness 桌面客户端的原生皮肤插件：**一个插件，四套�
 
 ---
 
+## 预览
+
+**开机动画**（约 20 秒，可 Esc 跳过，可 Ctrl+Alt+B 重播）
+
+![开机动画](docs/boot.jpg)
+
+**四套皮肤的工作台**
+
+![四套皮肤](docs/skins.jpg)
+
+**切换皮肤**：点输入框左侧的胶囊
+
+![切换菜单](docs/switcher.jpg)
+
+---
+
 ## 版权声明（请先读这一段）
 
 **代码**（`lib/`、`client/client.js`、安装脚本）以 MIT 许可发布。
