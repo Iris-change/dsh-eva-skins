@@ -16,31 +16,35 @@ DeepSeek Harness 桌面客户端的原生皮肤插件：**一个插件，四套�
 
 ## 一、安装
 
-### 方式 A：npm（推荐）
+### 方式 A：zip（推荐，最简单）
+
+到 [Releases](../../releases) 下载对应平台的包：
+
+| 平台 | 文件 | 装法 |
+| --- | --- | --- |
+| Windows | `dsh-unit02-skin-<版本>.zip` | 解压后**双击 `一键安装.cmd`** |
+| macOS | `dsh-unit02-skin-<版本>-mac.zip` | 解压后 `bash install-mac.command` |
+
+**装完必须彻底退出 DSH**（任务栏图标右键退出，或任务管理器结束 `DeepSeek Harness.exe`），再重新打开。只关窗口不算。
+
+### 方式 B：从仓库直接装（免下载 zip）
+
+```bash
+git clone https://github.com/Iris-change/dsh-unit02-skin.git
+dsh plugin --profile desktop add ./dsh-unit02-skin
+```
+
+或者不放命令，把仓库地址丢给 DSH 里的 agent：「帮我把这个皮肤装上」。
+
+> 本地路径方式在 profile 里记的是 `link:` 软链 —— 这个文件夹删了，皮肤就失效。想长期用建议留着它，或者走方式 A。
+
+### 方式 C：npm
+
+**暂未发布到 npm**。仓库本身已经是标准 npm 包结构（`package.json` 里有 `dsh.bundle` / `dsh.client` 字段），以后发布的话一行就能装：
 
 ```bash
 dsh plugin --profile desktop add dsh-unit02-skin
 ```
-
-装完**彻底退出 DSH**（任务栏图标右键退出，或任务管理器结束 `DeepSeek Harness.exe`），再重新打开。
-
-### 方式 B：zip（离线 / 不想敲命令）
-
-到 [Releases](../../releases) 下载对应平台：
-
-| 平台 | 文件 | 装法 |
-| --- | --- | --- |
-| Windows | `dsh-unit02-skin-<版本>.zip` | 解压后双击 `一键安装.cmd` |
-| macOS | `dsh-unit02-skin-<版本>-mac.zip` | 解压后 `bash install-mac.command` |
-
-### 方式 C：从源码
-
-```bash
-git clone https://github.com/iris-change/dsh-unit02-skin.git
-dsh plugin --profile desktop add ./dsh-unit02-skin
-```
-
-> 本地路径方式在 profile 里是 `link:` 软链——源目录删掉，皮肤就失效了。长期使用建议走 npm。
 
 ### 让 agent 帮你装
 
