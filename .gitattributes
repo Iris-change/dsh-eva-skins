@@ -1,0 +1,15 @@
+* text=auto
+*.js   text eol=lf
+*.css  text eol=lf
+*.html text eol=lf
+*.json text eol=lf
+*.yml  text eol=lf
+*.md   text eol=lf
+*.command text eol=lf
+*.sh   text eol=lf
+*.cmd  text eol=crlf
+*.txt  text eol=crlf
+*.png binary
+*.wav binary
+*.woff2 binary
+*.svg text eol=lf

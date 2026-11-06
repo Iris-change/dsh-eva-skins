@@ -1,0 +1,59 @@
+{
+    "name":  "dsh-unit02-skin",
+    "version": "2.0.1",
+    "description": "Four EVA skins (UNIT-02 / UNIT-00 / UNIT-01 / UNIT-08) for the DeepSeek Harness desktop app: boot sequence, palette, sidebar, frame, in-app switcher.",
+    "type":  "module",
+    "main":  "./lib/index.js",
+    "exports":  {
+                    ".":  {
+                              "default":  "./lib/index.js"
+                          },
+                    "./client":  {
+                                     "default":  "./client/client.js"
+                                 },
+                    "./package.json":  "./package.json"
+                },
+    "files":  [
+                  "lib",
+                  "client",
+                  "cordis.patch.yml",
+                  "README.md",
+                  "LICENSE"
+              ],
+    "dsh":  {
+                "bundle":  {
+                               "patch":  "./cordis.patch.yml"
+                           },
+                "client":  {
+                               "inject":  [
+                                              "@deepseek-ai/dsh-client-ui-theme"
+                                          ],
+                               "platform":  "web"
+                           }
+            },
+    "engines":  {
+                    "dsh":  "\u003e=0.2.0-rc.1 \u003c0.3.0-0"
+                },
+    "peerDependencies":  {
+                             "@deepseek-ai/cordis":  "\u003e=4.0.1 \u003c5.0.0",
+                             "react":  "^18.2.0"
+                         },
+    "peerDependenciesMeta":  {
+                                 "@deepseek-ai/cordis":  {
+                                                             "optional":  true
+                                                         },
+                                 "react":  {
+                                               "optional":  true
+                                           }
+                             },
+    "keywords": ["dsh","dsh-plugin","deepseek-harness","theme","skin","eva","unit-02","unit-00","unit-01","unit-08"],
+    "license":  "MIT",
+    "repository":  {
+                       "type":  "git",
+                       "url":  "git+https://github.com/iris-change/dsh-unit02-skin.git"
+                   },
+    "homepage":  "https://github.com/iris-change/dsh-unit02-skin#readme",
+    "publishConfig":  {
+                          "access":  "public"
+                      }
+}
