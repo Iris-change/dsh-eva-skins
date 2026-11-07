@@ -1,3 +1,9 @@
+## 2.1.3
+
+- 修：部分机器上 一键安装.cmd 误报「没找到 DeepSeek Harness」——原来越过窄的路径判断会直接放弃。
+- 安装器改为双路：先找 DSH 目录与 dsh 命令，找到就走 dsh plugin；找不到就直接写 profile（复制插件、改 package.json 的 dependencies 与 bundles、往 cordis.patch.yml 追加 insert），并逐步打印找到了什么。
+- 安装/卸载逻辑移到 install.ps1 / uninstall.ps1（.cmd 只做启动器），并支持 EVA_SKIP_CLI=1 / EVA_NOPAUSE=1 两个调试开关。
+- 卸载同样改为双路，并会清理 package.json 与 cordis.patch.yml 里的条目。
 # 版本记录
 
 只记录能感知到的变化：皮肤数、开机动画、配色与修复。
