@@ -1,6 +1,6 @@
 {
     "name":  "dsh-eva-skins",
-    "version": "2.1.3",
+    "version": "2.1.4",
     "description": "Four EVA skins (UNIT-02 / UNIT-00 / UNIT-01 / UNIT-08) for the DeepSeek Harness desktop app: boot sequence, palette, sidebar, frame, in-app switcher.",
     "type":  "module",
     "main":  "./lib/index.js",
