@@ -2,6 +2,18 @@
 
 只记录能感知到的变化：皮肤数、开机动画、配色与修复。
 
+## 2.1.2
+
+macOS 安装脚本加固（两个脚本都重写）：
+
+- **查找方式**从「写死 3 个路径」改成四层：command -v dsh → 遍历 /Applications、~/Applications、~/Desktop、/Users/Shared × 三种包内路径 → mdfind（Spotlight）兜底。
+- 安装前自动 xattr -dr com.apple.quarantine 并 chmod +x，免掉「无法验证开发者」。
+- 安装失败时直接列出三种常见原因（DSH 还开着 / 断网 / 权限不足），不再只丢一句红字。
+- 装完自动跑 plugin --profile desktop list，当场确认装上了。
+- 提示文案补齐四套皮肤名称与快捷键（Control+Option+U 开关 / Control+Option+B 重播）。
+- 卸载脚本同样加固，找不到 DSH 时会指引去「设置 → 插件」手动删。
+
+注意：以上仍未在真机 Mac 上验证，路径结构是按 Windows 版推断的。
 ## 2.1.1
 
 - **修 zip 路径分隔符**：2.1.0 的两个包用反斜杠做路径（.NET Framework 打包行为），
