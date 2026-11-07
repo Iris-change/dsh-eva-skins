@@ -14,6 +14,7 @@
                     "./package.json":  "./package.json"
                 },
     "files":  [
+    "NOTICE.md",
                   "lib",
                   "client",
                   "cordis.patch.yml",

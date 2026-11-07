@@ -19,23 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-----------------------------------------------------------------------------
-THIRD-PARTY ASSETS
-
-The MIT license above covers the source code in this repository only.
-
-The theme references characters, names and artwork from "Neon Genesis
-Evangelion" (EVANGELION, NERV, ASUKA, UNIT-02). Those are the property of
-their respective rights holders (khara, inc. and others) and are NOT covered
-by this license. Files under `client/intro/media/` that reproduce official
-artwork are included for personal, non-commercial fan use.
-
-If you redistribute this package publicly, replace those files with your own
-assets (or the placeholder versions shipped under `media/placeholders/`) and
-keep the code license separate from the artwork.
-
-Third-party code bundled under `client/intro/vendor/`:
-  - three.js      — MIT, Copyright (c) 2010-2024 three.js authors
-  - html-to-image — MIT, Copyright (c) 2017 W.Y.
-  - Montserrat    — SIL Open Font License 1.1
