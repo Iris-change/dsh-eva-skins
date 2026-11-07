@@ -1,5 +1,5 @@
 window.__ModuleLoader__.load({
-  id: "dsh-unit02-skin",
+  id: "dsh-eva-skins",
   factory: (require) => {
     var module = { exports: {} };
     var exports = module.exports;
@@ -1122,7 +1122,7 @@ window.__ModuleLoader__.load({
      * 5. plugin entry
      * ============================================================ */
 
-    const name = "dsh-unit02-skin";
+    const name = "dsh-eva-skins";
     const inject = ["slots"];
 
     function apply(ctx) {

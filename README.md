@@ -38,16 +38,16 @@ DeepSeek Harness 桌面客户端的原生皮肤插件：**一个插件，四套�
 
 | 平台 | 文件 | 装法 |
 | --- | --- | --- |
-| Windows | `dsh-unit02-skin-<版本>.zip` | 解压后**双击 `一键安装.cmd`** |
-| macOS | `dsh-unit02-skin-<版本>-mac.zip` | 解压后 `bash install-mac.command` |
+| Windows | `dsh-eva-skins-<版本>.zip` | 解压后**双击 `一键安装.cmd`** |
+| macOS | `dsh-eva-skins-<版本>-mac.zip` | 解压后 `bash install-mac.command` |
 
 **装完必须彻底退出 DSH**（任务栏图标右键退出，或任务管理器结束 `DeepSeek Harness.exe`），再重新打开。只关窗口不算。
 
 ### 方式 B：从仓库直接装（免下载 zip）
 
 ```bash
-git clone https://github.com/Iris-change/dsh-unit02-skin.git
-dsh plugin --profile desktop add ./dsh-unit02-skin
+git clone https://github.com/Iris-change/dsh-eva-skins.git
+dsh plugin --profile desktop add ./dsh-eva-skins
 ```
 
 或者不放命令，把仓库地址丢给 DSH 里的 agent：「帮我把这个皮肤装上」。
@@ -59,7 +59,7 @@ dsh plugin --profile desktop add ./dsh-unit02-skin
 **暂未发布到 npm**。仓库本身已经是标准 npm 包结构（`package.json` 里有 `dsh.bundle` / `dsh.client` 字段），以后发布的话一行就能装：
 
 ```bash
-dsh plugin --profile desktop add dsh-unit02-skin
+dsh plugin --profile desktop add dsh-eva-skins
 ```
 
 ### 让 agent 帮你装
@@ -128,7 +128,7 @@ window.unit02Skin.openPicker()
 ## 五、目录结构
 
 ```
-dsh-unit02-skin/
+dsh-eva-skins/
 ├── package.json          插件身份（name / dsh.bundle / dsh.client / files）
 ├── cordis.patch.yml      装进 DSH 的入口，只有一条 insert
 ├── lib/index.js          host 侧：为四套动画各注册一条静态路由
@@ -152,7 +152,7 @@ dsh-unit02-skin/
 ## 六、卸载
 
 ```bash
-dsh plugin --profile desktop remove dsh-unit02-skin
+dsh plugin --profile desktop remove dsh-eva-skins
 ```
 
 或运行 `卸载.cmd` / `bash uninstall-mac.command`，然后彻底退出重开。

@@ -1,25 +1,25 @@
 @echo off
 chcp 936 >nul 2>&1
-title UNIT-02 Æ¤·ô ¡¤ Ð¶ÔØ
+title UNIT-02 Æ¤ï¿½ï¿½ ï¿½ï¿½ Ð¶ï¿½ï¿½
 setlocal enabledelayedexpansion
 color 07
 
 echo.
-echo   ÕýÔÚÐ¶ÔØ UNIT-02 Æ¤·ô...
+echo   ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ UNIT-02 Æ¤ï¿½ï¿½...
 echo.
 
 set "DSH=%LOCALAPPDATA%\Programs\DeepSeek Harness\resources\runtime\cli\bin\dsh.cmd"
 
 if not exist "%DSH%" (
-  echo   [x] Ã»ÕÒµ½ DeepSeek Harness
+  echo   [x] Ã»ï¿½Òµï¿½ DeepSeek Harness
   pause
   exit /b 1
 )
 
-call "%DSH%" plugin --profile desktop remove dsh-unit02-skin
+call "%DSH%" plugin --profile desktop remove dsh-eva-skins
 
 echo.
-echo   ÒÑÐ¶ÔØ¡£¹Øµô DeepSeek Harness ´°¿ÚÔÙÖØÐÂ´ò¿ª£¬¾Í»Øµ½Ä¬ÈÏ½çÃæÁË¡£
-echo   ÏëÔÙ×°»ØÀ´£¬Ë«»÷¡¸Ò»¼ü°²×°.cmd¡¹¼´¿É¡£
+echo   ï¿½ï¿½Ð¶ï¿½Ø¡ï¿½ï¿½Øµï¿½ DeepSeek Harness ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â´ò¿ª£ï¿½ï¿½Í»Øµï¿½Ä¬ï¿½Ï½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½
+echo   ï¿½ï¿½ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½×°.cmdï¿½ï¿½ï¿½ï¿½ï¿½É¡ï¿½
 echo.
 pause

@@ -2,6 +2,11 @@
 
 只记录能感知到的变化：皮肤数、开机动画、配色与修复。
 
+## 2.1.0
+
+- 改名：dsh-unit02-skin → dsh-eva-skins（四套皮肤，不是一个机体）
+- 仓库地址同步改为 https://github.com/Iris-change/dsh-eva-skins
+- 内部存储键（unit02-skin / unit02-skin-set / unit02-boot-at）保持不变，老用户升级不掉设置
 ## 2.0.2
 
 - 版权声明改成「粉丝创作、不主张权利、可应要求下架」的表述
