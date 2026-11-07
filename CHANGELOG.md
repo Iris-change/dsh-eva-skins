@@ -2,6 +2,15 @@
 
 只记录能感知到的变化：皮肤数、开机动画、配色与修复。
 
+## 2.1.1
+
+- **修 zip 路径分隔符**：2.1.0 的两个包用反斜杠做路径（.NET Framework 打包行为），
+  macOS 上 unzip 会把 dsh-eva-skins\package.json 当成一个文件名，整个包解出来是碎的。
+  现在改为正斜杠，Windows / macOS 都能正常解压。
+- **安装脚本更稳**：一键安装.cmd 不再只认 %LOCALAPPDATA%，
+  依次尝试 LocalAppData / Program Files / Program Files (x86) / where dsh，
+  装在别的盘也能找到。
+- 安装完成提示补上四套皮肤与「彻底退出再重开」的说明。
 ## 2.1.0
 
 - 改名：dsh-unit02-skin → dsh-eva-skins（四套皮肤，不是一个机体）
