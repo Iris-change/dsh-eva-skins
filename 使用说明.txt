@@ -34,6 +34,16 @@ DeepSeek Harness · EVA 皮肤合集（四套）
 每次重新打开 DSH 会播一次（约 20 秒，每套皮肤不同）。
 右下角「进入工作台 ↗」或按 Esc 可以立刻跳过。
 
+【更新到新版本】
+皮肤不会自动更新。看到有新版本时，跑一次：
+
+    dsh plugin --profile desktop add dsh-eva-skins@版本号
+
+（版本号看 Releases 页，例如 dsh-eva-skins@2.1.5）
+
+注意：不带版本号的 add 不会升级，会保持原来的版本。
+或者先卸载再装：dsh plugin --profile desktop remove dsh-eva-skins，再 add dsh-eva-skins。
+改完同样要彻底退出 DSH 再打开。
 【快捷键】
 Ctrl + Alt + U    开 / 关皮肤
 Ctrl + Alt + B    重播开机动画

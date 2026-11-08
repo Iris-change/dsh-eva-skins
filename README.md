@@ -58,11 +58,32 @@ dsh plugin --profile desktop add ./dsh-eva-skins
 
 ### 方式 C：npm
 
-**暂未发布到 npm**。仓库本身已经是标准 npm 包结构（`package.json` 里有 `dsh.bundle` / `dsh.client` 字段），以后发布的话一行就能装：
+已经发布到 npm，一条命令：
 
 ```bash
 dsh plugin --profile desktop add dsh-eva-skins
 ```
+
+装完**彻底退出 DSH 再打开**（关窗口不算退出）。
+
+### 更新到新版本
+
+**皮肤不会自动更新**，要有意识地手动跑一次。
+
+⚠️ 注意：**不带版本号的 `add` 不会升级**。实测：先装 2.1.2，之后跑 `add dsh-eva-skins`（甚至 `add dsh-eva-skins@latest`）都还是 2.1.2 —— 因为 profile 里已经把版本号钉死了。必须写死目标版本，或者先删再装：
+
+```bash
+# 升级到指定版本（把 2.1.5 换成 Releases 页上的最新版本号）
+dsh plugin --profile desktop add dsh-eva-skins@2.1.5
+
+# 或者：先卸载，再装最新
+dsh plugin --profile desktop remove dsh-eva-skins
+dsh plugin --profile desktop add dsh-eva-skins
+```
+
+改完同样要**彻底退出 DSH 再打开**。
+
+为什么不做自动更新：插件运行在 DSH 进程内部，替换自己的文件必须重启应用；宿主目前没有提供「插件自更新」接口；而且让一个界面插件自动下载并执行新代码，也不适合默认打开。
 
 ### 让 agent 帮你装
 
