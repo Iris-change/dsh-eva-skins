@@ -1005,6 +1005,20 @@ window.__ModuleLoader__.load({
       } catch (e) {
         /* ignore */
       }
+      /* cloning the whole document is expensive; skip it on heavy pages so the
+         first frame of the sequence can never block the app */
+      var skip = false;
+      try {
+        var nodes = document.querySelectorAll("*").length;
+        skip =
+          document.body.scrollHeight > window.innerHeight * 2.5 ||
+          nodes > 3500 ||
+          localStorage.getItem("unit02-snapshot") === "0";
+      } catch (e) {
+        skip = true;
+      }
+      if (skip) return solidBitmap(background);
+
       return loadSnapshotLib().then(function (lib) {
         if (!lib || typeof lib.toCanvas !== "function") return solidBitmap(background);
         var started = Date.now();
@@ -1038,6 +1052,8 @@ window.__ModuleLoader__.load({
       if (!intro) return;
       var closing = intro;
       intro = null;
+      if (closing.guard) clearTimeout(closing.guard);
+      if (closing.slow) clearTimeout(closing.slow);
       if (mark) markBootShown();
       window.removeEventListener("message", closing.onMessage);
       closing.layer.style.opacity = "0";
@@ -1088,6 +1104,10 @@ window.__ModuleLoader__.load({
       state.onMessage = function (event) {
         if (intro !== state || event.source !== frame.contentWindow) return;
         var data = event.data || {};
+        if (state.guard && data.type) {
+          clearTimeout(state.guard);
+          state.guard = null;
+        }
         if (data.type === "hackclaw:snapshot-request" || data.type === "hackclaw:intro-ready") {
           sendSnapshot();
         } else if (data.type === "hackclaw:intro-close") {
@@ -1099,6 +1119,10 @@ window.__ModuleLoader__.load({
       window.addEventListener("message", state.onMessage);
 
       frame.addEventListener("load", function () {
+        if (state.slow) {
+          clearTimeout(state.slow);
+          state.slow = null;
+        }
         try {
           var doc = frame.contentDocument;
           if (!doc || !doc.head) return;
@@ -1109,6 +1133,14 @@ window.__ModuleLoader__.load({
           /* ignore */
         }
       });
+
+      /* failsafes: never trap the user behind a stuck overlay */
+      state.slow = setTimeout(function () {
+        if (intro === state) closeIntro(true);
+      }, 12000);
+      state.guard = setTimeout(function () {
+        if (intro === state) closeIntro(true);
+      }, 45000);
 
       frame.src = INTRO_SRC[readSkin()] || INTRO_SRC.asuka;
     }

@@ -51,3 +51,6 @@ Ctrl + Alt + B    重播开机动画
   插件文件已复制 / package.json 已更新 / cordis.patch.yml 已追加
 
 macOS 用户请看 README-mac.txt。
+【如果开机动画卡住】
+按 Esc，或点右下角「进入工作台」就能跳过。
+如果每次都卡，按 Ctrl+Alt+U 关掉皮肤，或把胶囊切到「默认主题」。
