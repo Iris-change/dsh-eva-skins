@@ -467,6 +467,11 @@ window.__ModuleLoader__.load({
       '.u2-menu-lab{font-size:12px;letter-spacing:.05em}',
       '.u2-menu-sub{font-size:10px;color:#8B8078;white-space:nowrap}',
       '.u2-menu-item[data-active="true"] .u2-menu-sub{color:#C08A6A}',
+      '.u2-menu-sep{height:1px;margin:4px 7px;background:rgba(240,106,34,.22)}',
+      '.u2-menu-item[data-kind="update"] .u2-menu-lab{color:#FF8A5B}',
+      '.u2-menu-item[data-kind="update"]:hover{background:#2A1410}',
+      'html[data-unit02-update="1"] .u2-chip-dot{background:#FF3B30;box-shadow:0 0 8px rgba(255,59,48,.85);animation:u2-upd 1.7s ease-in-out infinite}',
+      '@keyframes u2-upd{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.45);opacity:.72}}',
 
       /* ---------- REI skin: white / blue (EVANGELION-00) ---------- */
       'html[data-unit02-set="rei"] body,',
@@ -867,8 +872,105 @@ window.__ModuleLoader__.load({
       if (skinMenu && !skinMenu.contains(e.target)) closeSkinMenu();
     }
 
+    /* ---------- update badge: installed version vs npm latest ---------- */
+
+    var UPD_KEY = "unit02-update";
+    var UPD_TTL = 6 * 60 * 60 * 1000;
+    var updateInfo = null;
+
+    function cmpVer(a, b) {
+      var pa = String(a || "0").split(".");
+      var pb = String(b || "0").split(".");
+      for (var i = 0; i < 3; i++) {
+        var na = parseInt(pa[i], 10) || 0;
+        var nb = parseInt(pb[i], 10) || 0;
+        if (na !== nb) return na > nb ? 1 : -1;
+      }
+      return 0;
+    }
+
+    function selfVersion() {
+      if (updateInfo && updateInfo.self) return Promise.resolve(updateInfo.self);
+      return fetch("/eva-skins-version", { cache: "no-store" })
+        .then(function (r) { return r.ok ? r.json() : null; })
+        .then(function (j) { return (j && j.version) || "0.0.0"; })
+        .catch(function () { return "0.0.0"; });
+    }
+
+    function paintUpdateDot(info) {
+      try {
+        document.documentElement.setAttribute(
+          "data-unit02-update",
+          info && info.hasUpdate ? "1" : "0"
+        );
+      } catch (e) {
+        /* ignore */
+      }
+    }
+
+    function checkUpdate(force) {
+      try {
+        if (!force) {
+          var cached = JSON.parse(localStorage.getItem(UPD_KEY) || "null");
+          if (cached && cached.at && Date.now() - cached.at < UPD_TTL) {
+            updateInfo = cached;
+            paintUpdateDot(cached);
+            return Promise.resolve(cached);
+          }
+        }
+      } catch (e) {
+        /* ignore */
+      }
+      return selfVersion().then(function (self) {
+        return fetch("https://registry.npmjs.org/dsh-eva-skins/latest", {
+          cache: "no-store",
+          headers: { accept: "application/json" }
+        })
+          .then(function (r) {
+            if (!r.ok) throw new Error("http " + r.status);
+            return r.json();
+          })
+          .then(function (j) {
+            var latest = String((j && j.version) || "");
+            var info = {
+              self: self,
+              latest: latest,
+              hasUpdate: !!latest && cmpVer(latest, self) > 0,
+              at: Date.now()
+            };
+            updateInfo = info;
+            try {
+              localStorage.setItem(UPD_KEY, JSON.stringify(info));
+            } catch (e) {
+              /* ignore */
+            }
+            paintUpdateDot(info);
+            return info;
+          });
+      }).catch(function (err) {
+        var info = {
+          self: (updateInfo && updateInfo.self) || "",
+          latest: "",
+          hasUpdate: false,
+          at: Date.now(),
+          err: String((err && err.message) || err)
+        };
+        updateInfo = info;
+        paintUpdateDot(info);
+        return info;
+      });
+    }
+
+    function copyText(s) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(s);
+      }
+      return Promise.reject(new Error("no clipboard"));
+    }
+
     function openSkinMenu(anchor) {
       closeSkinMenu();
+      checkUpdate(false);
       var menu = document.createElement("div");
       menu.className = "u2-menu";
       menu.setAttribute("role", "menu");
@@ -892,6 +994,33 @@ window.__ModuleLoader__.load({
         });
         menu.appendChild(b);
       });
+      if (updateInfo && updateInfo.hasUpdate) {
+        var sep = document.createElement("div");
+        sep.className = "u2-menu-sep";
+        menu.appendChild(sep);
+        var row = document.createElement("button");
+        row.type = "button";
+        row.className = "u2-menu-item";
+        row.setAttribute("role", "menuitem");
+        row.setAttribute("data-kind", "update");
+        var rl = document.createElement("span");
+        rl.className = "u2-menu-lab";
+        rl.textContent = "新版本 " + updateInfo.latest;
+        var rs = document.createElement("span");
+        rs.className = "u2-menu-sub";
+        rs.textContent = "复制更新命令";
+        row.append(rl, rs);
+        var cmd = "dsh plugin --profile desktop add dsh-eva-skins@" + updateInfo.latest;
+        row.addEventListener("click", function () {
+          copyText(cmd).then(function () {
+            rs.textContent = "已复制 ✓";
+          }).catch(function () {
+            rs.textContent = "";
+            rl.textContent = cmd;
+          });
+        });
+        menu.appendChild(row);
+      }
       document.body.appendChild(menu);
       var r = anchor.getBoundingClientRect();
       var mw = menu.offsetWidth || 220;
@@ -1201,6 +1330,16 @@ window.__ModuleLoader__.load({
         };
       });
 
+      /* update badge: quiet check after the shell is up */
+      ctx.effect(function () {
+        var t = setTimeout(function () {
+          checkUpdate(false);
+        }, 9000);
+        return function () {
+          clearTimeout(t);
+        };
+      });
+
       /* the identity sequence plays on launch, once per session window */
       ctx.effect(function () {
         if (!readEnabled() || !bootDue()) return;
@@ -1248,7 +1387,11 @@ window.__ModuleLoader__.load({
             var el = document.querySelector(".u2-chip");
             if (el) openSkinMenu(el);
           },
-          replayBoot: replayIntro
+          replayBoot: replayIntro,
+          checkUpdate: checkUpdate,
+          getUpdate: function () {
+            return updateInfo;
+          }
         };
         return function () {
           try {

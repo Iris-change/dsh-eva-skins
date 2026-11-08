@@ -35,6 +35,8 @@ DeepSeek Harness · EVA 皮肤合集（四套）
 右下角「进入工作台 ↗」或按 Esc 可以立刻跳过。
 
 【更新到新版本】
+输入框左边的小指示灯变红闪动，说明有新版本；点开胶囊，菜单最下面一行可以复制升级命令。
+
 皮肤不会自动更新。看到有新版本时，跑一次：
 
     dsh plugin --profile desktop add dsh-eva-skins@版本号
