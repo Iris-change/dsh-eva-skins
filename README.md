@@ -73,8 +73,8 @@ dsh plugin --profile desktop add dsh-eva-skins
 ⚠️ 注意：**不带版本号的 `add` 不会升级**。实测：先装 2.1.2，之后跑 `add dsh-eva-skins`（甚至 `add dsh-eva-skins@latest`）都还是 2.1.2 —— 因为 profile 里已经把版本号钉死了。必须写死目标版本，或者先删再装：
 
 ```bash
-# 升级到指定版本（把 2.1.5 换成 Releases 页上的最新版本号）
-dsh plugin --profile desktop add dsh-eva-skins@2.1.5
+# 升级到指定版本（把 2.1.6 换成 Releases 页上的最新版本号）
+dsh plugin --profile desktop add dsh-eva-skins@2.1.6
 
 # 或者：先卸载，再装最新
 dsh plugin --profile desktop remove dsh-eva-skins
